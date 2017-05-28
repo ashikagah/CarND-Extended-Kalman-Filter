@@ -35,13 +35,11 @@ void KalmanFilter::Update(const VectorXd &z) {
   TODO:
     * update the state by using Kalman Filter equations
   */
-    VectorXd z_pred = H_ * x_;
-    VectorXd y = z - z_pred;
+    VectorXd y = z - H_ * x_;
     MatrixXd Ht = H_.transpose();
     MatrixXd S = H_ * P_ * Ht + R_;
     MatrixXd Si = S.inverse();
-    MatrixXd PHt = P_ * Ht;
-    MatrixXd K = PHt * Si;
+    MatrixXd K = P_ * Ht * Si;
     
     //new estimate
     x_ = x_ + (K * y);
@@ -79,8 +77,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
     MatrixXd Ht = H_.transpose();
     MatrixXd S = H_ * P_ * Ht + R_;
     MatrixXd Si = S.inverse();
-    MatrixXd PHt = P_ * Ht;
-    MatrixXd K = PHt * Si;
+    MatrixXd K = P_ * Ht * Si;
     
     //new estimate
     x_ = x_ + (K * y);

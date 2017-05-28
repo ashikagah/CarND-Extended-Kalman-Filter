@@ -113,7 +113,7 @@ if (!is_initialized_) {
         ekf_.x_(2) = rho_dot * cos(phi);    // vx
         ekf_.x_(3) = rho_dot * sin(phi);    // vy
         
-        // Avoid divide by zero
+        // Avoid dividing by zero
         if (fabs(ekf_.x_(0)) < 0.0001){
             ekf_.x_(0) = 0.1;
         }
